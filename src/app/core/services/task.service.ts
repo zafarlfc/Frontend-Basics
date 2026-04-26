@@ -15,6 +15,10 @@ export class TaskService {
     return this.tasks;
   }
 
+  getTaskById(id: string) {
+    return this.tasks.find(task => task.id === parseInt(id));
+  }
+
   addTask(task: any) {
     this.tasks.push(task);
   }

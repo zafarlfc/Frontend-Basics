@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TaskService } from '../../core/services/task.service';
 
 @Component({
   selector: 'app-task-detail',
@@ -9,9 +10,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './task-detail.component.css'
 })
 export class TaskDetailComponent {
-  taskId: any;
+  private taskService = inject(TaskService);
+  private route = inject(ActivatedRoute);
+  taskId: any = this.route.snapshot.paramMap.get('id');
 
-  constructor(private route: ActivatedRoute) {
-    this.taskId = this.route.snapshot.paramMap.get('id');
-  }
+  task: any = this.taskService.getTaskById(this.taskId);
 }
