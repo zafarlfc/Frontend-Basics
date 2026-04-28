@@ -9,5 +9,6 @@
     </li>
 </ul>
 
-<input type="text" placeholder="Task Title" [(ngModel)]="newTaskTitle">
-<button (click)="addTask()">Add Task</button>
+<!-- <input type="text" placeholder="Task Title" [(ngModel)]="newTaskTitle"> -->
+<!-- <button (click)="addTask()">Add Task</button> -->
+<button [routerLink]="['/create']">Create Task</button>
