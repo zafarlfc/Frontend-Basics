@@ -38,9 +38,9 @@ export class TaskListComponent {
   }
 
   statusColorMapping: Record<string, string> = {
-    'To Do': 'red',
-    'In Progress': 'orange',
-    'Done': 'green'
+    'To Do': '#f59e0b',
+    'In Progress': '#3b82f6',
+    'Done': '#10b981'
   };
 
 }

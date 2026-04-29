@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '../../core/services/task.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-task-detail',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.css'
 })

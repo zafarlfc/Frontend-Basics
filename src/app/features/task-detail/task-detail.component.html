@@ -1,4 +1,37 @@
-<h2>Task Detail</h2>
-<p>Task ID: {{ task.id }}</p>
-<p>Name: {{ task.title }}</p>
-<p>Status: {{ task.status }}</p>
+<div class="detail-container">
+    <!-- Navigation Header -->
+    <header class="detail-header">
+        <button class="back-link" [routerLink]="['/']">
+            ← Back to List
+        </button>
+        <h1>Task Detail</h1>
+    </header>
+
+    @if (task) {
+    <div class="detail-card">
+        <!-- ID Badge -->
+        <div class="id-tag">ID: {{ task.id }}</div>
+
+        <div class="content-section">
+            <label>Task Name</label>
+            <h2>{{ task.title }}</h2>
+        </div>
+
+        <div class="content-section">
+            <label>Current Status</label>
+            <div class="status-badge" [attr.data-status]="task.status">
+                {{ task.status }}
+            </div>
+        </div>
+
+        <div class="action-footer">
+            <!-- Optional: Placeholder for Edit/Delete buttons -->
+            <button class="btn-edit" [routerLink]="['/edit', task.id]">Edit Task</button>
+        </div>
+    </div>
+    } @else {
+    <div class="loading">
+        <p>Loading task details...</p>
+    </div>
+    }
+</div>
