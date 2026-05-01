@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from ..app import db
-from ..models import Task
+from backend_app.models import Task, db
 
 task_api = Blueprint("tasks", __name__)
 
