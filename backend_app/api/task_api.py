@@ -16,7 +16,11 @@ def get_tasks():
       "id": task.id,
       "title": task.title,
       "status": task.status,
-      "priority": task.priority
+      "priority": task.priority,
+      "severity": task.severity,
+      "reporter": task.reporter,
+      "assignee": task.assignee,
+      "created_at": task.created_at
     })
 
   return jsonify(result)
@@ -36,6 +40,9 @@ def get_task(task_id):
     "description": task.description,
     "status": task.status,
     "priority": task.priority,
+    "severity": task.severity,
+    "reporter": task.reporter,
+    "assignee": task.assignee,
     "created_at": task.created_at
   })
 
@@ -47,8 +54,8 @@ def create_task():
 
   title = data.get("title")
   description = data.get("description")
-  status = data.get("status", "TODO")
-  priority = data.get("priority", "MEDIUM")
+  status = data.get("status", "Open")
+  priority = data.get("priority", "Medium")
 
   if not title:
     return jsonify({"message": "Title is required"}), 400
