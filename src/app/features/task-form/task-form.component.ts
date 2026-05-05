@@ -30,7 +30,7 @@ export class TaskFormComponent {
     };
 
     this.taskService.addTask(newTask);
-    this.form.reset({ status: 'To Do' });
+    this.form.reset({ status: 'Open' });
 
     this.router.navigate(['/']);
   }
