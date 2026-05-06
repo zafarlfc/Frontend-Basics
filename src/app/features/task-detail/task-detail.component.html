@@ -1,37 +1,64 @@
 <div class="detail-container">
-    <!-- Navigation Header -->
     <header class="detail-header">
-        <button class="back-link" [routerLink]="['/']">
-            ← Back to List
-        </button>
+        <button class="back-link" [routerLink]="['/']">← Back to List</button>
         <h1>Task Detail</h1>
     </header>
 
     @if (task) {
-    <div class="detail-card">
-        <!-- ID Badge -->
-        <div class="id-tag">ID: {{ task.id }}</div>
+    <div class="jira-layout">
+        <!-- LEFT SIDE: Primary Content -->
+        <div class="main-content">
+            <div class="title-section">
+                <label>Summary</label>
+                <h2>{{ task.title }}</h2>
+            </div>
 
-        <div class="content-section">
-            <label>Task Name</label>
-            <h2>{{ task.title }}</h2>
-        </div>
-
-        <div class="content-section">
-            <label>Current Status</label>
-            <div class="status-badge" [attr.data-status]="task.status">
-                {{ task.status }}
+            <div class="description-section">
+                <label>Description</label>
+                <div class="description-box">
+                    {{ task.description || 'No description provided for this task.' }}
+                </div>
             </div>
         </div>
 
-        <div class="action-footer">
-            <!-- Optional: Placeholder for Edit/Delete buttons -->
-            <button class="btn-edit" [routerLink]="['/edit', task.id]">Edit Task</button>
+        <!-- RIGHT SIDE: Task Attributes -->
+        <div class="sidebar">
+            <div class="attribute-group">
+                <label>Status</label>
+                <span class="status-badge" [attr.data-status]="task.status">{{ task.status }}</span>
+            </div>
+
+            <div class="details-list">
+                <div class="detail-item">
+                    <label>Assignee</label>
+                    <span>{{ task.assignee }}</span>
+                </div>
+                <div class="detail-item">
+                    <label>Reporter</label>
+                    <span>{{ task.reporter }}</span>
+                </div>
+                <div class="detail-item">
+                    <label>Priority</label>
+                    <span class="priority-tag" [attr.data-priority]="task.priority">
+                        {{ task.priority }}
+                    </span>
+                </div>
+                <div class="detail-item">
+                    <label>Severity</label>
+                    <span>{{ task.severity }}</span>
+                </div>
+                <div class="detail-item">
+                    <label>Created</label>
+                    <span>{{ task.created_at | date:'dd/MMM/yy HH:mm' }}</span>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="btn-edit" [routerLink]="['/edit', task.id]">Edit Details</button>
+            </div>
         </div>
     </div>
     } @else {
-    <div class="loading">
-        <p>Loading task details...</p>
-    </div>
+    <div class="loading-state">Loading ticket #{{ task?.id }}...</div>
     }
 </div>

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TaskService } from '../../core/services/task.service';
@@ -5,7 +6,7 @@ import { TaskService } from '../../core/services/task.service';
 @Component({
   selector: 'app-task-detail',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, DatePipe],
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.css'
 })

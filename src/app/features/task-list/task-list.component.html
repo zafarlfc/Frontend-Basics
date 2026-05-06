@@ -6,21 +6,43 @@
         </button>
     </div>
 
-    <div class="task-grid">
-        @for (task of tasks; track task.id) {
-        <a [routerLink]="['/task', task.id]" class="task-card">
-            <div class="task-info">
-                <span class="task-title">{{ task.title }}</span>
-                <span class="task-status" [style.background-color]="statusColorMapping[task.status]">
-                    {{ task.status }}
-                </span>
-            </div>
-            <span class="arrow">→</span>
-        </a>
-        } @empty {
-        <div class="empty-state">
-            <p>No tasks found. Start by creating one!</p>
+    <div class="task-list-wrapper">
+        <!-- Header Row -->
+        <div class="list-header">
+            <span class="col-id">Key</span>
+            <span class="col-title">Summary</span>
+            <span class="col-assignee">Assignee</span>
+            <span class="col-priority">Priority</span>
+            <span class="col-status">Status</span>
+            <span class="col-created">Created</span>
         </div>
-        }
+
+        <div class="task-rows">
+            @for (task of tasks; track task.id) {
+            <a [routerLink]="['/task', task.id]" class="task-row">
+                <span class="col-id">#{{ task.id }}</span>
+                <span class="col-title">{{ task.title }}</span>
+                <span class="col-assignee">
+                    <div class="avatar-circle">{{ task.assignee[0] }}</div>
+                    {{ task.assignee }}
+                </span>
+                <span class="col-priority">
+                    <span class="priority-indicator" [attr.data-priority]="task.priority">
+                        {{ task.priority }}
+                    </span>
+                </span>
+                <span class="col-status">
+                    <span class="status-pill" [attr.data-status]="task.status">
+                        {{ task.status }}
+                    </span>
+                </span>
+                <span class="col-created">{{ task.created_at | date:'MMM dd' }}</span>
+            </a>
+            } @empty {
+            <div class="empty-state">
+                <p>No tasks found. Your backlog is clear!</p>
+            </div>
+            }
+        </div>
     </div>
 </div>
