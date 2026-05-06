@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TaskService } from '../../core/services/task.service';
-import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -15,12 +15,22 @@ import { FormsModule } from '@angular/forms';
 export class TaskListComponent {
 
   tasks: any[] = [];
+  loading = true;
   private taskService = inject(TaskService);
 
   newTaskTitle: string = '';
 
   ngOnInit() {
-    this.tasks = this.taskService.getTasks();
+    this.taskService.getTasks().subscribe({
+      next: (tasks) => {
+        this.tasks = tasks;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching tasks:', error);
+        this.loading = false;
+      }
+    });
   }
 
   addTask() {
@@ -33,11 +43,12 @@ export class TaskListComponent {
     };
 
     this.taskService.addTask(newTask);
-    this.tasks = this.taskService.getTasks();
+    // this.tasks = this.taskService.getTasks();
     this.newTaskTitle = "";
   }
 
   statusColorMapping: Record<string, string> = {
+    'Open': '#f59e0b',
     'To Do': '#f59e0b',
     'In Progress': '#3b82f6',
     'Done': '#10b981'

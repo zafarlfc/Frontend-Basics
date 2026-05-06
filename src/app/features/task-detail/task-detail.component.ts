@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TaskService } from '../../core/services/task.service';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-task-detail',
@@ -15,5 +14,20 @@ export class TaskDetailComponent {
   private route = inject(ActivatedRoute);
   taskId: any = this.route.snapshot.paramMap.get('id');
 
-  task: any = this.taskService.getTaskById(this.taskId);
+  task: any;
+
+  getTask() {
+    this.taskService.getTaskById(this.taskId).subscribe({
+      next: (task) => {
+        this.task = task;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.getTask();
+  }
 }

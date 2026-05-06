@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TaskService } from '../../core/services/task.service';
 import { Router, RouterLink } from "@angular/router";
+import { TaskService } from '../../core/services/task.service';
 
 @Component({
   selector: 'app-task-form',
@@ -25,14 +25,17 @@ export class TaskFormComponent {
     if (this.form.invalid) return;
 
     const newTask = {
-      id: Date.now(),
       ...this.form.value
     };
 
-    this.taskService.addTask(newTask);
-    this.form.reset({ status: 'Open' });
-
-    this.router.navigate(['/']);
+    this.taskService.addTask(newTask).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+        this.form.reset({ status: 'Open' });
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
-
 }
