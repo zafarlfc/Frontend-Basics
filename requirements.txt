@@ -2,3 +2,5 @@ flask
 flask_sqlalchemy
 pymysql
 flask_cors
+flask-jwt-extended
+werkzeug
