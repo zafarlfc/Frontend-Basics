@@ -8,7 +8,11 @@ task_api = Blueprint("tasks", __name__)
 # ✅ 1. List Tasks
 @task_api.route("/", methods=["GET"])
 def get_tasks():
-  tasks = Task.query.all()
+  page = int(request.args.get("page", 1))
+  limit = int(request.args.get("limit", 5))
+
+  pagination_obj = Task.query.paginate(page=page, per_page=limit, error_out=False)
+  tasks = pagination_obj.items
 
   result = []
   for task in tasks:
@@ -23,7 +27,16 @@ def get_tasks():
       "created_at": task.created_at
     })
 
-  return jsonify(result)
+  total = pagination_obj.total
+  current_page = pagination_obj.page
+  total_pages = pagination_obj.pages
+
+  return jsonify({
+    "data": result,
+    "total": total,
+    "page": current_page,
+    "pages": total_pages
+  }), 200
 
 
 # ✅ 2. Task Detail
