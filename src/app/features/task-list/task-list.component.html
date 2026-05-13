@@ -46,3 +46,6 @@
         </div>
     </div>
 </div>
+<mat-paginator [length]="total" [pageSize]="limit" [pageSizeOptions]="[2, 5, 10]" (page)="handlePageEvent($event)"
+    aria-label="Select page">
+</mat-paginator>
